@@ -6,10 +6,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.flyco.animation.BounceEnter.BounceTopEnter;
+import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.dialog.listener.OnOperItemClickL;
 import com.flyco.dialog.widget.ActionSheetDialog;
@@ -20,17 +24,25 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btn;
 
+    BounceTopEnter mBasIn = new BounceTopEnter();
+    SlideBottomExit mBasOut = new SlideBottomExit();
+    private CustomBaseDialog cbd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        cbd = new CustomBaseDialog(this);
 
         btn = (Button) findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                ActionSheetDialog(MainActivity.this);
-                NormalDialogCustomAttr(MainActivity.this);
+//                NormalDialogCustomAttr(MainActivity.this);
+                cbd.show();
+
             }
         });
     }
@@ -58,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected void NormalDialogCustomAttr(final Context context) {
         final NormalDialog dialog = new NormalDialog(context);
+
         dialog.isTitleShow(false)//
                 .bgColor(Color.parseColor("#ffffff"))//
                 .cornerRadius(5)//
@@ -68,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
                 .btnTextSize(15.5f, 15.5f)//
                 .btnTextColor(Color.parseColor("#0072ff"), Color.parseColor("#0072ff"))//
                 .btnPressColor(Color.parseColor("#f5f5f5"))//
-                .widthScale(0.85f)//
+//                .widthScale(1.0f)//
+                .heightScale(0.8f)
 //                .showAnim(mBasIn)//
 //                .dismissAnim(mBasOut)//
                 .show();
@@ -90,6 +104,10 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 //        dialog.setCanceledOnTouchOutside(false);
+//        LinearLayout ll = (LinearLayout) dialog.onCreateView();
+//        ViewGroup.LayoutParams lp = ll.getLayoutParams();
+//        lp.height = 400;
+//        dialog.onCreateView().setLayoutParams(lp);
     }
 
 }
